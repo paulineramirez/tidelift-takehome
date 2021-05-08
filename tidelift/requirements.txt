@@ -1,0 +1,5 @@
+Flask
+black
+invoke
+pytest
+requests
