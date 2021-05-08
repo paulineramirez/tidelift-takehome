@@ -18,3 +18,11 @@ the application as you work.
 - `invoke lint` # Checks for linting errors
 - `invoke fix` # Fixes linting errors
 
+
+## Creating requests
+
+You can call either of the endpoints through Terminal with either of the below:
+
+`curl http://127.0.0.1:5000/package/releases/tiny-tarball`
+
+`curl http://127.0.0.1:5000/package/health/dummy/0.8`
