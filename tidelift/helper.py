@@ -48,7 +48,7 @@ class MetadataHelper:
 		if package in self.licenses:
 			license = self.licenses[package]
 			vulnerabilities_info = []
-
+			
 			for data in self.vulnerabilities[package]:
 				info = {}
 				if data[1] == version:
@@ -56,8 +56,10 @@ class MetadataHelper:
 					info['description'] = data[2]
 					info['created'] = data[3].strftime("%Y-%m-%dT%H:%M:%SZ")
 					vulnerabilities_info.append(info)
-
-			return jsonify({"name": package, "version": version, "license": license, "vulnerabilities": vulnerabilities_info})
+			
+			response = jsonify({"name": package, "version": version, "license": license, "vulnerabilities": vulnerabilities_info})
+			response.status_code = 200
+			return response
 		
 		else:
 			response = jsonify("Package and license not found.")
@@ -95,8 +97,8 @@ class MetadataHelper:
 			if k not in ['created', 'modified']:
 				date = dt.strptime(times[k], "%Y-%m-%dT%H:%M:%S.%fZ")
 				times_versions[date] = k
-		
-		max_time = max(times_versions, key=times_versions.get)	
+
+		max_time = max(times_versions)
 		response = jsonify({"name":package, "latest":times_versions[max_time], "releases":releases})
 		response.status_code = 200
 		return response
